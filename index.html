@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" id="passwordField" />
+      <button type="submit" id="closeButton">Click</button>
+    </form>
+    <p id="messageBox"></p>
+  </body>
+  <script defer>
+    let x = document.querySelector("#closeButton");
+
+    x.addEventListener("click", function () {
+      fetch("http://127.0.0.1:5000/close", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({
+          password: document.querySelector("#passwordField").value,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("data");
+          alert(data.message);
+        });
+    });
+  </script>
+</html>
